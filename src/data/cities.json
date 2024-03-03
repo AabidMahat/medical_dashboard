@@ -1,0 +1,104 @@
+{
+  "cities": [
+    {
+      "cityName": "Akshay Medical",
+      "country": "India",
+      "contact": "9860053847",
+      "date": "2024-02-29T06:41:24.514Z",
+      "emoji": "💊",
+      "notes": "All types of medicine is avaliable",
+      "position": {
+        "lat": "16.693598305221112",
+        "lng": "74.19759754788188"
+      },
+      "mapData": {
+        "distance": "1.67",
+        "time": {
+          "hours": 0,
+          "minutes": 2
+        }
+      },
+      "id": 1
+    },
+    {
+      "cityName": "Ganga Medical",
+      "country": "India",
+      "contact": "7559153594",
+      "date": "2024-02-29T06:46:35.472Z",
+      "emoji": "💊",
+      "notes": "All Allopathic medicines are avaliable",
+      "position": {
+        "lat": "16.696357810139645",
+        "lng": "74.2171212291213"
+      },
+      "mapData": {
+        "distance": "1.67",
+        "time": {
+          "hours": 0,
+          "minutes": 2
+        }
+      },
+      "id": 2
+    },
+    {
+      "cityName": "LifeLine Medical",
+      "country": "India",
+      "contact": "7722091594",
+      "date": "2024-02-29T06:47:53.878Z",
+      "emoji": "💊",
+      "notes": "All types of Medicine is avaliable",
+      "position": {
+        "lat": "16.69808501792118",
+        "lng": "74.22465660684651"
+      },
+      "mapData": {
+        "distance": "1.67",
+        "time": {
+          "hours": 0,
+          "minutes": 2
+        }
+      },
+      "id": 3
+    },
+    {
+      "cityName": "Wellness",
+      "country": "India",
+      "contact": "9607433699",
+      "date": "2024-02-29T06:48:37.006Z",
+      "emoji": "💊",
+      "notes": "All Types of medicine is avaliable",
+      "position": {
+        "lat": "16.702247548878393",
+        "lng": "74.2321557957622"
+      },
+      "mapData": {
+        "distance": "1.67",
+        "time": {
+          "hours": 0,
+          "minutes": 2
+        }
+      },
+      "id": 4
+    },
+    {
+      "cityName": "Shree Medical",
+      "country": "India",
+      "contact": "8844221840",
+      "date": "2024-02-29T06:49:28.919Z",
+      "emoji": "💊",
+      "notes": "All types of Medicine avaliable",
+      "position": {
+        "lat": "16.693428934497675",
+        "lng": "74.19181940496787"
+      },
+      "mapData": {
+        "distance": "1.67",
+        "time": {
+          "hours": 0,
+          "minutes": 2
+        }
+      },
+      "id": 5
+    }
+  ]
+}
