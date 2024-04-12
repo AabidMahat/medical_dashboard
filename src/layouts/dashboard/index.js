@@ -19,9 +19,34 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { setPatient } from "context";
+import { useEffect, useState } from "react";
+import { useMaterialUIController } from "context";
 
 function Dashboard() {
+  const context = useMaterialUIController();
   const { sales, tasks } = reportsLineChartData;
+  useEffect(() => {
+    async function fetchPatientData() {
+      const token = Cookies.get("jwt");
+      Cookies.set("ayesha", token, { domain: "localhost" });
+      try {
+        const response = await axios.get("http://localhost:4000/api/v1/patients", {
+          withCredentials: true,
+        });
+        const data = response.data;
+        setPatient(context[1], data.data.patient);
+        console.log(data.data.patient);
+
+        console.log(context[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchPatientData();
+  }, []);
 
   return (
     <DashboardLayout>

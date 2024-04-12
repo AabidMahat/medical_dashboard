@@ -23,7 +23,7 @@ import team4 from "assets/images/team-4.jpg";
 export default [
   {
     image: kal,
-    name: "Sophie B.",
+    name: "Dr. Sophie B.",
     description: "Hi! I need more information..",
     action: {
       type: "internal",
@@ -34,7 +34,7 @@ export default [
   },
   {
     image: marie,
-    name: "Anne Marie",
+    name: "Dr. Anne Marie",
     description: "Awesome work, can you..",
     action: {
       type: "internal",
@@ -45,7 +45,7 @@ export default [
   },
   {
     image: ivana,
-    name: "Ivanna",
+    name: "Dr. Ivanna",
     description: "About files I can..",
     action: {
       type: "internal",
@@ -56,7 +56,7 @@ export default [
   },
   {
     image: team4,
-    name: "Peterson",
+    name: "Dr. Peterson",
     description: "Have a great afternoon..",
     action: {
       type: "internal",
@@ -67,7 +67,7 @@ export default [
   },
   {
     image: team3,
-    name: "Nick Daniel",
+    name: "Dr. Nick Daniel",
     description: "Hi! I need more information..",
     action: {
       type: "internal",

@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 
 // @mui material components
@@ -22,21 +7,47 @@ import Switch from "@mui/material/Switch";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import { Icon } from "@mui/material";
-import { Timeline } from "@mui/icons-material";
-import TimelineItem from "examples/Timeline/TimelineItem";
-import ProfileInfoCard from "examples/Cards/InfoCards/ProfileInfoCard";
+import { TextField } from "@mui/material";
+import Toast, { showToast } from "./Toast";
+import { setPatientName } from "context";
+import { useMaterialUIController } from "context";
+import { setPatientPasscode } from "context";
 
 function PlatformSettings() {
-  const [followsMe, setFollowsMe] = useState(true);
-  const [answersPost, setAnswersPost] = useState(false);
-  const [mentionsMe, setMentionsMe] = useState(true);
+  const context = useMaterialUIController();
+  // const [changePasscodeSwitch, setChangePasscodeSwitch] = useState(false);
   const [newLaunches, setNewLaunches] = useState(false);
-  const [productUpdate, setProductUpdate] = useState(true);
+  const [passcode, setPasscode] = useState("test1234");
+
+  const [productUpdate, setProductUpdate] = useState(false);
+  const [newPatient, setNewPatient] = useState("Aabid");
+
   const [newsletter, setNewsletter] = useState(false);
+
+  const handleSubmitResponse = () => {
+    // Simulating data submission, you can replace this with your actual submission logic
+    setTimeout(() => {
+      // if (context[0].patientName === "Aabid" && context[0].patientPasscode === "test1234") {
+      //   showToast("Data Not has been Updated", "warning");
+      // } else {
+      //   !newsletter && showToast("Data submitted successfully", "success");
+      //   setPatientName(context[1], newPatient);
+      //   setNewsletter(true);
+      // }
+      if (newPatient !== "Aabid" && passcode !== "test1234" && !newsletter) {
+        showToast("Data submitted successfully", "success");
+        setPatientName(context[1], newPatient);
+        setPatientPasscode(context[1], passcode);
+        setNewsletter(true);
+      } else {
+        showToast("Data Not has been Updated", "warning");
+      }
+    }, 2000);
+  };
 
   return (
     <Card sx={{ boxShadow: "none" }}>
+      <Toast />
       <MDBox p={2}>
         <MDTypography variant="h6" fontWeight="medium" textTransform="capitalize">
           platform settings
@@ -52,7 +63,7 @@ function PlatformSettings() {
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              Astar Adhar
+              {`${context[0].patient?.hospital_name}`}
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -62,7 +73,7 @@ function PlatformSettings() {
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              Dr Suraj Mahat
+              {`${context[0].patient?.doctor_name}`}
             </MDTypography>
           </MDBox>
         </MDBox>
@@ -72,13 +83,13 @@ function PlatformSettings() {
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              HyperTension
+              {`${context[0].patient?.disease}`}
             </MDTypography>
           </MDBox>
         </MDBox>
         <MDBox mt={3}>
           <MDTypography variant="caption" fontWeight="bold" color="text" textTransform="uppercase">
-            application
+            Change me
           </MDTypography>
         </MDBox>
         <MDBox display="flex" alignItems="center" mb={0.5} ml={-1.5}>
@@ -86,9 +97,20 @@ function PlatformSettings() {
             <Switch checked={newLaunches} onChange={() => setNewLaunches(!newLaunches)} />
           </MDBox>
           <MDBox width="80%" ml={0.5}>
-            <MDTypography variant="button" fontWeight="regular" color="text">
-              What happened
-            </MDTypography>
+            {newLaunches ? (
+              <TextField
+                size="small"
+                variant="outlined"
+                fullWidth
+                margin="dense"
+                value={passcode}
+                onChange={(e) => setPasscode(e.target.value)}
+              ></TextField>
+            ) : (
+              <MDTypography variant="button" fontWeight="regular" color="text">
+                Change Default Passcode
+              </MDTypography>
+            )}
           </MDBox>
         </MDBox>
         <MDBox display="flex" alignItems="center" mb={0.5} ml={-1.5}>
@@ -96,18 +118,35 @@ function PlatformSettings() {
             <Switch checked={productUpdate} onChange={() => setProductUpdate(!productUpdate)} />
           </MDBox>
           <MDBox width="80%" ml={0.5}>
-            <MDTypography variant="button" fontWeight="regular" color="text">
-              Addmited Date
-            </MDTypography>
+            {productUpdate ? (
+              <TextField
+                size="small"
+                variant="outlined"
+                fontSize="1.3rem"
+                fullWidth
+                margin="dense"
+                // value={patientName}
+                onChange={(e) => setNewPatient(e.target.value)}
+              ></TextField>
+            ) : (
+              <MDTypography variant="button" fontWeight="regular" color="text">
+                Change Patient Name
+              </MDTypography>
+            )}
           </MDBox>
         </MDBox>
         <MDBox display="flex" alignItems="center" mb={0.5} ml={-1.5}>
           <MDBox mt={0.5}>
-            <Switch checked={newsletter} onChange={() => setNewsletter(!newsletter)} />
+            <Switch
+              checked={newsletter}
+              onChange={() => {
+                handleSubmitResponse();
+              }}
+            />
           </MDBox>
           <MDBox width="80%" ml={0.5}>
             <MDTypography variant="button" fontWeight="regular" color="text">
-              Subscribe to newsletter
+              Submit Data
             </MDTypography>
           </MDBox>
         </MDBox>

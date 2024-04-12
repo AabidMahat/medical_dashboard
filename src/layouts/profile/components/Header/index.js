@@ -37,28 +37,24 @@ import breakpoints from "assets/theme/base/breakpoints";
 // Images
 import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
+import { useMaterialUIController } from "context";
 
 function Header({ children }) {
+  const context = useMaterialUIController();
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
   const [tabValue, setTabValue] = useState(0);
 
   useEffect(() => {
-    // A function that sets the orientation state of the tabs.
     function handleTabsOrientation() {
       return window.innerWidth < breakpoints.values.sm
         ? setTabsOrientation("vertical")
         : setTabsOrientation("horizontal");
     }
 
-    /** 
-     The event listener that's calling the handleTabsOrientation function when resizing the window.
-    */
     window.addEventListener("resize", handleTabsOrientation);
 
-    // Call the handleTabsOrientation function to set the state with the initial value.
     handleTabsOrientation();
 
-    // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleTabsOrientation);
   }, [tabsOrientation]);
 
@@ -99,10 +95,10 @@ function Header({ children }) {
           <Grid item>
             <MDBox height="100%" mt={0.5} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Richard Davis
+                {context[0].patient?.name}
               </MDTypography>
               <MDTypography variant="button" color="text" fontWeight="regular">
-                CEO / Co-Founder
+                {context[0].patient?.username}
               </MDTypography>
             </MDBox>
           </Grid>
@@ -110,7 +106,7 @@ function Header({ children }) {
             <AppBar position="static">
               <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
                 <Tab
-                  label="App"
+                  label="Home"
                   icon={
                     <Icon fontSize="small" sx={{ mt: -0.25 }}>
                       home
@@ -137,20 +133,37 @@ function Header({ children }) {
             </AppBar>
           </Grid>
         </Grid>
+
         {children}
       </Card>
     </MDBox>
   );
 }
 
-// Setting default props for the Header
 Header.defaultProps = {
   children: "",
 };
 
-// Typechecking props for the Header
 Header.propTypes = {
   children: PropTypes.node,
 };
 
 export default Header;
+
+// // {/* Display patient data */}
+// {patientData && (
+//   <Grid container spacing={3} mt={3}>
+//     <Grid item xs={12}>
+//       <MDTypography variant="h6" fontWeight="medium">
+//         Patient Details
+//       </MDTypography>
+//     </Grid>
+//     <Grid item xs={12}>
+//       <MDTypography variant="body1">Name: {patientData.name}</MDTypography>
+//     </Grid>
+//     <Grid item xs={12}>
+//       <MDTypography variant="body1">Age: {patientData.age}</MDTypography>
+//     </Grid>
+//     {/* Add more patient details as needed */}
+//   </Grid>
+// )}

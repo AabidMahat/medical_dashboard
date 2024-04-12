@@ -58,13 +58,13 @@ export default function data() {
       { Header: "Hospital Name", accessor: "project", width: "30%", align: "left" },
       { Header: "budget", accessor: "budget", align: "left" },
       { Header: "status", accessor: "status", align: "center" },
-      { Header: "completion", accessor: "completion", align: "center" },
+      { Header: "review", accessor: "completion", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
     ],
 
     rows: [
       {
-        project: <Project image={LogoAsana} name="Asana" />,
+        project: <Project image={LogoAsana} name="Aster Adhar" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $2,500
@@ -83,7 +83,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoGithub} name="Github" />,
+        project: <Project image={logoGithub} name="Diamond Hospital" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $5,000
@@ -102,7 +102,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoAtlassian} name="Atlassian" />,
+        project: <Project image={logoAtlassian} name="Tulip Hospital" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $3,400
@@ -121,7 +121,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoSpotify} name="Spotify" />,
+        project: <Project image={logoSpotify} name="City Hospital" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $14,000
@@ -140,7 +140,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoSlack} name="Slack" />,
+        project: <Project image={logoSlack} name="Apple Saraswati" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $1,000
@@ -159,7 +159,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoInvesion} name="Invesion" />,
+        project: <Project image={logoInvesion} name="Apex Hospital" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $2,300

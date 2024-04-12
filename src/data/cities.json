@@ -12,10 +12,10 @@
         "lng": "74.19759754788188"
       },
       "mapData": {
-        "distance": "1.67",
+        "distance": "236.00",
         "time": {
-          "hours": 0,
-          "minutes": 2
+          "hours": 3,
+          "minutes": 23
         }
       },
       "id": 1
@@ -72,10 +72,10 @@
         "lng": "74.2321557957622"
       },
       "mapData": {
-        "distance": "1.67",
+        "distance": "233.60",
         "time": {
-          "hours": 0,
-          "minutes": 2
+          "hours": 3,
+          "minutes": 19
         }
       },
       "id": 4
@@ -92,10 +92,10 @@
         "lng": "74.19181940496787"
       },
       "mapData": {
-        "distance": "1.67",
+        "distance": "235.49",
         "time": {
-          "hours": 0,
-          "minutes": 2
+          "hours": 3,
+          "minutes": 23
         }
       },
       "id": 5
