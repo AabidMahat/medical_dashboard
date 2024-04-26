@@ -6,6 +6,7 @@ import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import AppV2 from "layouts/medicine/src/Appv2";
 
 const routes = [
   {
@@ -40,6 +41,14 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <Profile />,
+  },
+  {
+    type: "collapse",
+    name: "Medicine",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/medicine",
+    component: <AppV2 />,
   },
   {
     type: "collapse",

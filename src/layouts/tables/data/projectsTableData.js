@@ -31,6 +31,7 @@ import logoAtlassian from "assets/images/small-logos/logo-atlassian.svg";
 import logoSlack from "assets/images/small-logos/logo-slack.svg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
 import logoInvesion from "assets/images/small-logos/logo-invision.svg";
+import axios from "axios";
 
 export default function data() {
   const Project = ({ image, name }) => (
@@ -41,6 +42,17 @@ export default function data() {
       </MDTypography>
     </MDBox>
   );
+
+  async function getDoctors() {
+    try {
+      const res = await axios.get("https://www.healthos.co/api/v1/search/medicines/brands/alpr");
+      const data = await res.data;
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  getDoctors();
 
   const Progress = ({ color, value }) => (
     <MDBox display="flex" alignItems="center">

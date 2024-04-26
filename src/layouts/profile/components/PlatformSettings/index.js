@@ -9,40 +9,66 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { TextField } from "@mui/material";
 import Toast, { showToast } from "./Toast";
-import { setPatientName } from "context";
 import { useMaterialUIController } from "context";
-import { setPatientPasscode } from "context";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 function PlatformSettings() {
   const context = useMaterialUIController();
   // const [changePasscodeSwitch, setChangePasscodeSwitch] = useState(false);
   const [newLaunches, setNewLaunches] = useState(false);
-  const [passcode, setPasscode] = useState("test1234");
+  const [currentPasscode, setcurrentPasscode] = useState("test1234");
+  const [newPasscode, setnewPasscode] = useState("test1234");
+  const [confirmPasscode, setconfirmPasscode] = useState("test1234");
 
   const [productUpdate, setProductUpdate] = useState(false);
-  const [newPatient, setNewPatient] = useState("Aabid");
 
   const [newsletter, setNewsletter] = useState(false);
 
-  const handleSubmitResponse = () => {
-    // Simulating data submission, you can replace this with your actual submission logic
-    setTimeout(() => {
-      // if (context[0].patientName === "Aabid" && context[0].patientPasscode === "test1234") {
-      //   showToast("Data Not has been Updated", "warning");
-      // } else {
-      //   !newsletter && showToast("Data submitted successfully", "success");
-      //   setPatientName(context[1], newPatient);
-      //   setNewsletter(true);
-      // }
-      if (newPatient !== "Aabid" && passcode !== "test1234" && !newsletter) {
-        showToast("Data submitted successfully", "success");
-        setPatientName(context[1], newPatient);
-        setPatientPasscode(context[1], passcode);
-        setNewsletter(true);
-      } else {
-        showToast("Data Not has been Updated", "warning");
+  console.log(context[0].loginPassword);
+  const handleSubmitResponse = async () => {
+    try {
+      const response = await axios.patch(
+        "http://localhost:4000/api/v1/patients/updateMyPassword",
+        {
+          passwordCurrent: currentPasscode,
+          password: newPasscode,
+          passwordConfirm: confirmPasscode,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      const data = await response.data;
+      console.log(response.status);
+      if (currentPasscode !== context[0].loginPassword) {
+        toast.error("Wrong Password . Please confirm again", {
+          position: "top-center",
+          theme: "dark",
+          autoClose: 3000,
+        });
+        return;
       }
-    }, 2000);
+      if (currentPasscode === context[0].loginPassword && data.status === "success") {
+        toast.success("Password Update Successfully", {
+          position: "top-center",
+          theme: "dark",
+          autoClose: 3000,
+        });
+
+        await axios.get("http://localhost:4000/api/v1/patients/logOut", {
+          withCredentials: true,
+        });
+
+        setTimeout(() => {
+          window.location.href = "/authentication/sign-in";
+        }, 3500);
+        setNewsletter(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -103,12 +129,12 @@ function PlatformSettings() {
                 variant="outlined"
                 fullWidth
                 margin="dense"
-                value={passcode}
-                onChange={(e) => setPasscode(e.target.value)}
+                value={currentPasscode}
+                onChange={(e) => setcurrentPasscode(e.target.value)}
               ></TextField>
             ) : (
               <MDTypography variant="button" fontWeight="regular" color="text">
-                Change Default Passcode
+                Current Passcode
               </MDTypography>
             )}
           </MDBox>
@@ -125,12 +151,29 @@ function PlatformSettings() {
                 fontSize="1.3rem"
                 fullWidth
                 margin="dense"
-                // value={patientName}
-                onChange={(e) => setNewPatient(e.target.value)}
+                value={newPasscode}
+                onChange={(e) => setnewPasscode(e.target.value)}
               ></TextField>
             ) : (
               <MDTypography variant="button" fontWeight="regular" color="text">
-                Change Patient Name
+                New Passcode
+              </MDTypography>
+            )}
+          </MDBox>
+          <MDBox width="80%" ml={0.5}>
+            {productUpdate ? (
+              <TextField
+                size="small"
+                variant="outlined"
+                fontSize="1.3rem"
+                fullWidth
+                margin="dense"
+                value={confirmPasscode}
+                onChange={(e) => setconfirmPasscode(e.target.value)}
+              ></TextField>
+            ) : (
+              <MDTypography variant="button" fontWeight="regular" color="text">
+                Confirm Passcode
               </MDTypography>
             )}
           </MDBox>
@@ -141,6 +184,7 @@ function PlatformSettings() {
               checked={newsletter}
               onChange={() => {
                 handleSubmitResponse();
+                setNewsletter(!newsletter);
               }}
             />
           </MDBox>

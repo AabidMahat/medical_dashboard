@@ -30,8 +30,6 @@ function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
   useEffect(() => {
     async function fetchPatientData() {
-      const token = Cookies.get("jwt");
-      Cookies.set("ayesha", token, { domain: "localhost" });
       try {
         const response = await axios.get("http://localhost:4000/api/v1/patients", {
           withCredentials: true,

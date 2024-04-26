@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
@@ -15,12 +15,16 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import { useMaterialUIController } from "context";
+import { setPatientPasscode as loginPasscode } from "context";
+import { loginPatientPasscode } from "context";
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
   const [patientMail, setPatientMail] = useState("");
   const [patientPassword, setPatientPassword] = useState("");
   const [error, setError] = useState("");
+  const [, dispatch] = useMaterialUIController();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,15 +42,24 @@ function Basic() {
           withCredentials: true,
         }
       );
-      console.log(res.status);
-      if (res.status === 200)
+      const data = await res.data;
+
+      if (res.status === 200) {
+        console.log(patientPassword);
+        loginPatientPasscode(dispatch, patientPassword);
         toast.success("Login Successful", {
           position: "top-center",
           theme: "dark",
+          autoClose: 3000,
         });
-      else setError("Invalid Username or Password");
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data);
+      toast.error("Invalid username or password", {
+        position: "top-center",
+        theme: "dark",
+        autoClose: 3000,
+      });
     }
   };
 

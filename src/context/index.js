@@ -18,7 +18,8 @@ const initialState = {
   layout: "dashboard",
   darkMode: false,
   patientName: "Aabid",
-  patientPasscode: "test1234",
+  patientPasscode: "",
+  loginPassword: "",
   patient: null,
 };
 
@@ -67,6 +68,9 @@ function reducer(state, action) {
     case "CurrentPatientData": {
       return { ...state, patient: action.value };
     }
+    case "LoginPassword": {
+      return { ...state, loginPassword: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -114,6 +118,7 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setPatientName = (dispatch, value) => dispatch({ type: "PatientName", value });
 const setPatientPasscode = (dispatch, value) => dispatch({ type: "PatientPasscode", value });
 const setPatient = (dispatch, value) => dispatch({ type: "CurrentPatientData", value });
+const loginPatientPasscode = (dispatch, value) => dispatch({ type: "LoginPassword", value });
 
 export {
   MaterialUIControllerProvider,
@@ -131,4 +136,5 @@ export {
   setPatientName,
   setPatientPasscode,
   setPatient,
+  loginPatientPasscode,
 };

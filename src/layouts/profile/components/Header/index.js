@@ -25,6 +25,7 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Icon from "@mui/material/Icon";
+import PersonIcon from "@mui/icons-material/Person";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -38,6 +39,8 @@ import breakpoints from "assets/theme/base/breakpoints";
 import burceMars from "assets/images/bruce-mars.jpg";
 import backgroundImage from "assets/images/bg-profile.jpeg";
 import { useMaterialUIController } from "context";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Header({ children }) {
   const context = useMaterialUIController();
@@ -59,6 +62,22 @@ function Header({ children }) {
   }, [tabsOrientation]);
 
   const handleSetTabValue = (event, newValue) => setTabValue(newValue);
+
+  function handleSignOut() {
+    axios.get("http://localhost:4000/api/v1/patients/logOut", {
+      withCredentials: true,
+    });
+
+    toast.success("Log Out Successful", {
+      position: "top-center",
+      theme: "dark",
+      autoClose: 3000,
+    });
+
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 3000);
+  }
 
   return (
     <MDBox position="relative" mb={5}>
@@ -106,29 +125,16 @@ function Header({ children }) {
             <AppBar position="static">
               <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
                 <Tab
-                  label="Home"
+                  onClick={handleSignOut}
+                  label="Sign Out"
                   icon={
                     <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      home
+                      <PersonIcon />
                     </Icon>
                   }
                 />
-                <Tab
-                  label="Message"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      email
-                    </Icon>
-                  }
-                />
-                <Tab
-                  label="Settings"
-                  icon={
-                    <Icon fontSize="small" sx={{ mt: -0.25 }}>
-                      settings
-                    </Icon>
-                  }
-                />
+                <Tab />
+                <Tab />
               </Tabs>
             </AppBar>
           </Grid>
